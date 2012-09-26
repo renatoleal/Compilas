@@ -6,12 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.formula.functions.Column;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -51,7 +48,7 @@ public class Transicoes {
 
 	    Sheet sheet = wb.getSheet("Transicoes");
 	    String transicao;
-	    for (int i = 1; i < sheet.getLastRowNum(); i++) {
+	    for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 	    	Row row = sheet.getRow(i);
 	    	HashMap<Integer, Integer> pe = new HashMap<Integer, Integer>();
     		HashMap<Integer, Integer> as = new HashMap<Integer, Integer>();
@@ -65,6 +62,9 @@ public class Transicoes {
 			
 			proximoEstado.add(i, pe);
 			acaoSemantica.add(i, as);
+			
+			System.out.println("Estado "+i+";Próximos Estados: "+pe.toString());
+			System.out.println("Estado "+i+";Ação Semmântica: "+as.toString());
 		}
 	}
 	
