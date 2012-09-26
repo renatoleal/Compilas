@@ -17,7 +17,7 @@ public class Sinais {
 	private static Sinais instance;
 	private ArrayList<String> sinais = new ArrayList<String>();
 	
-	protected Sinais(){
+	private Sinais(){
 	    InputStream inp = null;
 	    Workbook wb = null;
 		try {

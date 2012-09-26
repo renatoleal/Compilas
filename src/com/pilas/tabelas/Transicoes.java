@@ -73,4 +73,13 @@ public class Transicoes {
 			instance = new Transicoes();
 		return instance;
 	}
+	
+	public Integer getProximoEstado(Integer estadoAtual, Integer tipoSimbolo) {
+		return proximoEstado.get(estadoAtual).get(tipoSimbolo);
+	}
+
+	public Integer getAcaoSemantica(Integer estadoAtual, Integer tipoSimbolo) {
+		return acaoSemantica.get(estadoAtual).get(tipoSimbolo);
+	}
+	
 }
