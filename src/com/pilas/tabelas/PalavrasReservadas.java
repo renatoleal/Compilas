@@ -2,13 +2,11 @@ package com.pilas.tabelas;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -35,16 +33,25 @@ public class PalavrasReservadas {
 
 	    Sheet sheet = wb.getSheet("PalavrasReservadas");
 	    for (Row row : sheet) {
-	    	palavrasReservadas.add((int)row.getCell(0).getNumericCellValue(), row.getCell(1).getStringCellValue());
+	    	palavrasReservadas.add((int)row.getCell(0).getNumericCellValue(), row.getCell(1).getStringCellValue().toLowerCase());
 		}
-	    for (int i = 0; i < palavrasReservadas.size(); i++) {
-			System.out.println("Indice: "+i+" Palavra: "+palavrasReservadas.get(i));
-		}
+//	    for (int i = 0; i < palavrasReservadas.size(); i++) {
+//			System.out.println("Indice: "+i+" Palavra: "+palavrasReservadas.get(i));
+//		}
 	}
 	
 	public static PalavrasReservadas getInstance(){
 		if(instance==null)
 			instance = new PalavrasReservadas();
 		return instance;
+	}
+	
+	public int contains(String palavra) {
+		int index = -1;
+		String palavra_lower = palavra.toLowerCase();
+		if (this.palavrasReservadas.contains(palavra_lower))
+			index = this.palavrasReservadas.indexOf(palavra_lower);
+		
+		return index;
 	}
 }

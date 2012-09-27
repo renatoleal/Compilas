@@ -63,8 +63,8 @@ public class Transicoes {
 			proximoEstado.add(i, pe);
 			acaoSemantica.add(i, as);
 			
-			System.out.println("Estado "+i+";Próximos Estados: "+pe.toString());
-			System.out.println("Estado "+i+";Ação Semmântica: "+as.toString());
+//			System.out.println("Estado "+i+";Próximos Estados: "+pe.toString());
+//			System.out.println("Estado "+i+";Ação Semmântica: "+as.toString());
 		}
 	}
 	

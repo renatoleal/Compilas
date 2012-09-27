@@ -19,6 +19,7 @@ public class Main {
 	private static String cadeia;
 	private static Integer token_tipo;
 	private static Integer token_valor;
+	
 	private static List<Token> tokens = new ArrayList<Token>();
 	
 	/**
@@ -31,6 +32,7 @@ public class Main {
 				
 		try {
 		    input = new BufferedReader(new FileReader("./source.txt"));
+//		    input = new BufferedReader(new FileReader(args[0]));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,7 +40,7 @@ public class Main {
 		while(leSimbolo()) {
 			
 			simbolo_tipo = classificaSimbolo(simbolo);
-			System.out.println("int: "+(int)simbolo+ " char:"+simbolo+" tipo:"+ simbolo_tipo);
+//			System.out.println("int: "+(int)simbolo+ " char:"+simbolo+" tipo:"+ simbolo_tipo);
 			Integer ps = transicoes.getProximoEstado(estado, simbolo_tipo);
 			Integer as = transicoes.getAcaoSemantica(estado, simbolo_tipo);
 			
@@ -62,9 +64,14 @@ public class Main {
 					break;
 
 				case 4:
-					int index = simbolos.addSimbolo(cadeia);
-					token_tipo = 256;
-					token_valor = index;
+					if(pr.contains(cadeia) != -1) {
+						token_tipo = 260 + pr.contains(cadeia);
+						token_valor = null;
+					} else {
+						int index = simbolos.addSimbolo(cadeia);
+						token_tipo = 256;
+						token_valor = index;						
+					}
 					funcaoSaida();
 					break;
 
@@ -85,8 +92,16 @@ public class Main {
 			}
 		}
 		
+		// Imprime Resultados
+		System.out.println("Lista de Tokens gerados:");
 		for (Token t : tokens) {
 			System.out.println("<tipo:"+ t.getTipo()+",valor:"+t.getValor()+">");			
+		}
+		
+		ArrayList<String> simbolo_list = simbolos.getSimbolos();
+		System.out.println("\nLista de S’mbolos Indexados:");
+		for (int i=0; i < simbolo_list.size(); i++) {
+			System.out.println("indice:"+i+" simbolo:"+simbolo_list.get(i));
 		}
 		
 	}

@@ -1,14 +1,13 @@
 package com.pilas.tabelas;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Simbolos {
 
 	private static Simbolos instance;
-	private HashMap<String, Integer> simbolos;
+	private ArrayList<String> simbolos = new ArrayList<String>();
 	
 	private Simbolos() {
-		simbolos = new HashMap<String, Integer>();
 	}
 	
 	public static Simbolos getInstance(){
@@ -18,13 +17,18 @@ public class Simbolos {
 	}
 	
 	public int addSimbolo(String simbolo) {
-		int index;
-		if(!this.simbolos.containsKey(simbolo)) {
+		String simbolo_lower = simbolo.toLowerCase();
+		int index;		
+		if(!this.simbolos.contains(simbolo_lower)) {
 			index = this.simbolos.size();
-			this.simbolos.put(simbolo, this.simbolos.size());			
+			this.simbolos.add(simbolo_lower);			
 		} else {
-			index = this.simbolos.get(simbolo);
+			index = this.simbolos.indexOf(simbolo_lower);
 		}
 		return index;
+	}
+	
+	public ArrayList<String> getSimbolos() {
+		return this.simbolos;
 	}
 }
