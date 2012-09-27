@@ -31,8 +31,11 @@ public class Main {
 		Simbolos simbolos = Simbolos.getInstance();
 				
 		try {
-		    input = new BufferedReader(new FileReader("./source.txt"));
-//		    input = new BufferedReader(new FileReader(args[0]));
+		    if(args.length > 0) {
+			    input = new BufferedReader(new FileReader(args[0]));		    	
+		    } else {
+				input = new BufferedReader(new FileReader("./source.txt"));
+		    }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -65,7 +68,7 @@ public class Main {
 
 				case 4:
 					if(pr.contains(cadeia) != -1) {
-						token_tipo = 260 + pr.contains(cadeia);
+						token_tipo = 259 + pr.contains(cadeia);
 						token_valor = null;
 					} else {
 						int index = simbolos.addSimbolo(cadeia);
