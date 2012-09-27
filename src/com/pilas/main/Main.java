@@ -140,9 +140,11 @@ public class Main {
 			tipo = Transicoes.IGUAL;
 		else if (String.valueOf(s).matches("%"))
 			tipo = Transicoes.PORCENTAGEM;
-		else if (String.valueOf(s).matches(" "))
+		else if (String.valueOf(s).matches(" ")
+				|| (int)s == (int)('\t'))
 			tipo = Transicoes.BRANCO;
-		else if ((int)s == (int)('\n'))
+		else if ((int)s == (int)('\n')
+				|| (int)s == (int)('\r'))
 			tipo = Transicoes.QUEBRA;
 		
 		return tipo;
