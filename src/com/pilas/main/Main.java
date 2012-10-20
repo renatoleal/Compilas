@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.pilas.tabelas.PalavrasReservadas;
 import com.pilas.tabelas.Simbolos;
+import com.pilas.tabelas.Sinais;
 import com.pilas.tabelas.Transicoes;
 
 public class Main {
@@ -29,6 +30,7 @@ public class Main {
 		PalavrasReservadas pr = PalavrasReservadas.getInstance();
 		Transicoes transicoes = Transicoes.getInstance();
 		Simbolos simbolos = Simbolos.getInstance();
+		Sinais sinais = Sinais.getInstance();
 				
 		try {
 		    if(args.length > 0) {
@@ -57,8 +59,13 @@ public class Main {
 					break;
 					
 				case 2:
-					token_tipo = (int)cadeia.charAt(0);
-					token_valor = null;
+					if(sinais.contains(cadeia) != -1) {
+						token_tipo = 259;
+						token_valor = sinais.contains(cadeia);						
+					} else {
+						token_tipo = (int)cadeia.charAt(0);
+						token_valor = null;						
+					}
 					funcaoSaida();
 					break;
 	
@@ -68,7 +75,7 @@ public class Main {
 
 				case 4:
 					if(pr.contains(cadeia) != -1) {
-						token_tipo = 259 + pr.contains(cadeia);
+						token_tipo = 260 + pr.contains(cadeia);
 						token_valor = null;
 					} else {
 						int index = simbolos.addSimbolo(cadeia);
@@ -133,7 +140,7 @@ public class Main {
 	private static Integer classificaSimbolo(char s) {
 		Integer tipo = Transicoes.OUTROS;
 		
-		if (String.valueOf(s).matches("[a-zA-Z]"))
+		if (String.valueOf(s).matches("[a-zA-Z_]"))
 			tipo = Transicoes.LETRAS;
 		else if (String.valueOf(s).matches("[0-9]"))
 			tipo = Transicoes.NUMEROS;

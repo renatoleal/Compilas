@@ -33,16 +33,24 @@ public class Sinais {
 
 	    Sheet sheet = wb.getSheet("Sinais");
 	    for (Row row : sheet) {
-	    	sinais.add((int)row.getCell(0).getNumericCellValue(), row.getCell(1).getStringCellValue());
+	    	sinais.add((int)row.getCell(0).getNumericCellValue(), row.getCell(1).getStringCellValue().trim());
 		}
-	    for (int i = 0; i < sinais.size(); i++) {
-			System.out.println("Indice: "+i+" Sinal: "+sinais.get(i));
-		}
+//	    for (int i = 0; i < sinais.size(); i++) {
+//			System.out.println("Indice: "+i+" Sinal: "+sinais.get(i));
+//		}
 	}
 	
 	public static Sinais getInstance(){
 		if(instance==null)
 			instance = new Sinais();
 		return instance;
+	}
+	
+	public int contains(String sinal) {
+		int index = -1;
+		if (this.sinais.contains(sinal))
+			index = this.sinais.indexOf(sinal);
+		
+		return index;
 	}
 }
