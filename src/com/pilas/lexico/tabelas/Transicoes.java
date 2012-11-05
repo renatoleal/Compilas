@@ -1,4 +1,4 @@
-package com.pilas.tabelas;
+package com.pilas.lexico.tabelas;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

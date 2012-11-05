@@ -1,4 +1,4 @@
-package com.pilas.tabelas;
+package com.pilas.lexico.tabelas;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,12 +12,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-public class Sinais {
+public class PalavrasReservadas {
 
-	private static Sinais instance;
-	private ArrayList<String> sinais = new ArrayList<String>();
+	private static PalavrasReservadas instance;
+	private ArrayList<String> palavrasReservadas = new ArrayList<String>();
 	
-	private Sinais(){
+	private PalavrasReservadas(){
 	    InputStream inp = null;
 	    Workbook wb = null;
 		try {
@@ -31,25 +31,26 @@ public class Sinais {
 			e.printStackTrace();
 		}
 
-	    Sheet sheet = wb.getSheet("Sinais");
+	    Sheet sheet = wb.getSheet("PalavrasReservadas");
 	    for (Row row : sheet) {
-	    	sinais.add((int)row.getCell(0).getNumericCellValue(), row.getCell(1).getStringCellValue().trim());
+	    	palavrasReservadas.add((int)row.getCell(0).getNumericCellValue(), row.getCell(1).getStringCellValue().toLowerCase());
 		}
-//	    for (int i = 0; i < sinais.size(); i++) {
-//			System.out.println("Indice: "+i+" Sinal: "+sinais.get(i));
+//	    for (int i = 0; i < palavrasReservadas.size(); i++) {
+//			System.out.println("Indice: "+i+" Palavra: "+palavrasReservadas.get(i));
 //		}
 	}
 	
-	public static Sinais getInstance(){
+	public static PalavrasReservadas getInstance(){
 		if(instance==null)
-			instance = new Sinais();
+			instance = new PalavrasReservadas();
 		return instance;
 	}
 	
-	public int contains(String sinal) {
+	public int contains(String palavra) {
 		int index = -1;
-		if (this.sinais.contains(sinal))
-			index = this.sinais.indexOf(sinal);
+		String palavra_lower = palavra.toLowerCase();
+		if (this.palavrasReservadas.contains(palavra_lower))
+			index = this.palavrasReservadas.indexOf(palavra_lower);
 		
 		return index;
 	}
