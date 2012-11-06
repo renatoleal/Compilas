@@ -1,13 +1,20 @@
 package com.pilas.sintatico;
 
+import com.pilas.lexico.Lexico;
+import com.pilas.lexico.Token;
+
 public class Sintatico {
 	
-	private static Sintatico instance;
+	private Lexico lexico;
 	
-	public static Sintatico getInstance() {
-		if(instance == null)
-			instance = new Sintatico();
-		return instance;
+	public Sintatico(Lexico lexico) {
+		this.lexico = lexico;
 	}
-
+	
+	public void execute() {
+		Token token = null;
+		while((token = lexico.getNextToken()) != null) {
+			
+		}
+	}
 }

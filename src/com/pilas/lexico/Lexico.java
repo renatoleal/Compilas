@@ -3,8 +3,6 @@ package com.pilas.lexico;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.pilas.lexico.tabelas.PalavrasReservadas;
 import com.pilas.lexico.tabelas.Simbolos;
@@ -13,7 +11,6 @@ import com.pilas.lexico.tabelas.Transicoes;
 
 public class Lexico {
 	
-	private static Lexico instance;
 	private static BufferedReader input;
 	private static Integer estado = 1;
 	private static char simbolo;
@@ -22,30 +19,28 @@ public class Lexico {
 	private static Integer token_tipo;
 	private static Integer token_valor;
 	
-	private static List<Token> tokens = new ArrayList<Token>();
+	private static PalavrasReservadas pr;
+	private static Transicoes transicoes;
+	private static Simbolos simbolos;
+	private static Sinais sinais;
 	
-	public static Lexico getInstance() {
-		if(instance == null) 
-			 instance = new Lexico();
-		return instance;
-	}
-	
-	public void execute(String input_file) {
-		PalavrasReservadas pr = PalavrasReservadas.getInstance();
-		Transicoes transicoes = Transicoes.getInstance();
-		Simbolos simbolos = Simbolos.getInstance();
-		Sinais sinais = Sinais.getInstance();
-				
+	public Lexico(String input_file) {
+		pr = PalavrasReservadas.getInstance();
+		transicoes = Transicoes.getInstance();
+		simbolos = Simbolos.getInstance();
+		sinais = Sinais.getInstance();
+
 		try {
 		    input = new BufferedReader(new FileReader(input_file));		    	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 		
-		while(leSimbolo()) {
-			
+	public Token getNextToken() {
+		
+		if(leSimbolo()) {
 			simbolo_tipo = classificaSimbolo(simbolo);
-//			System.out.println("int: "+(int)simbolo+ " char:"+simbolo+" tipo:"+ simbolo_tipo);
 			Integer ps = transicoes.getProximoEstado(estado, simbolo_tipo);
 			Integer as = transicoes.getAcaoSemantica(estado, simbolo_tipo);
 			
@@ -68,7 +63,7 @@ public class Lexico {
 					}
 					funcaoSaida();
 					break;
-	
+
 				case 3:
 					cadeia = cadeia + String.valueOf(simbolo);
 					break;
@@ -100,20 +95,13 @@ public class Lexico {
 				default:
 					break;
 			}
-		}
+
+			return new Token(token_tipo, token_valor);
 		
-		// Imprime Resultados
-		System.out.println("Lista de Tokens gerados:");
-		for (Token t : tokens) {
-			System.out.println("<tipo:"+ t.getTipo()+",valor:"+t.getValor()+">");			
+		} else {
+			return null;
 		}
-		
-		ArrayList<String> simbolo_list = simbolos.getSimbolos();
-		System.out.println("\nLista de S’mbolos Indexados:");
-		for (int i=0; i < simbolo_list.size(); i++) {
-			System.out.println("indice:"+i+" simbolo:"+simbolo_list.get(i));
-		}
-		
+
 	}
 	
 	
@@ -162,8 +150,8 @@ public class Lexico {
 	
 	
 	private static void funcaoSaida() {
-		Token t = new Token(token_tipo, token_valor);
-		tokens.add(t);
+//		Token t = new Token(token_tipo, token_valor);
+//		tokens.add(t);
 		
 		try {
 			input.reset(); // volta para o œltimo caractere marcado no buffer de leitura

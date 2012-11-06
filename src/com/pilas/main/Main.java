@@ -1,6 +1,7 @@
 package com.pilas.main;
 
 import com.pilas.lexico.Lexico;
+import com.pilas.sintatico.Sintatico;
 
 public class Main {
 
@@ -9,14 +10,15 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// Executa analisador léxico
-		Lexico lexico = Lexico.getInstance();
+		Lexico lexico = null;
 		if(args[0] != null) {
-			lexico.execute(args[0]);
+			lexico = new Lexico(args[0]);
 		} else {
-			lexico.execute("./source.txt");
+			lexico = new Lexico("./source.txt");
 		}
 		
 		// Executa analisador sintático
+		Sintatico sintatico = new Sintatico(lexico);
 		
 	}
 
