@@ -1,4 +1,4 @@
-package com.pilas.main;
+package com.pilas.lexico;
 
 public class Token {
 
