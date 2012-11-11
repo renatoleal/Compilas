@@ -42,7 +42,6 @@ public class TransicoesMaquinas {
 		transicoesDiretas.add(4, importSheetDireta("4.Diretas"));
 		transicoesDiretas.add(5, importSheetDireta("5.Diretas"));
 		transicoesDiretas.add(6, importSheetDireta("6.Diretas"));
-		transicoesDiretas.add(7, importSheetDireta("7.Diretas"));
 		
 		//Adiciona as transicoes indiretas
 		transicoesIndiretas.add(new ArrayList<TransicaoIndireta>());
@@ -52,7 +51,6 @@ public class TransicoesMaquinas {
 		transicoesIndiretas.add(4, importSheetIndireta("4.Indiretas"));
 		transicoesIndiretas.add(5, importSheetIndireta("5.Indiretas"));
 		transicoesIndiretas.add(6, importSheetIndireta("6.Indiretas"));
-		transicoesIndiretas.add(7, importSheetIndireta("7.Indiretas"));
 	}
 	
 	private List<TransicaoDireta> importSheetDireta (String sheetName) {
