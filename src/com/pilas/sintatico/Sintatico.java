@@ -2,6 +2,7 @@ package com.pilas.sintatico;
 
 import com.pilas.lexico.Lexico;
 import com.pilas.lexico.Token;
+import com.pilas.sintatico.tabelas.TransicoesMaquinas;
 
 public class Sintatico {
 	
@@ -9,6 +10,7 @@ public class Sintatico {
 	
 	public Sintatico(Lexico lexico) {
 		this.lexico = lexico;
+		TransicoesMaquinas tm = TransicoesMaquinas.getInstance();
 	}
 	
 	public void execute() {
