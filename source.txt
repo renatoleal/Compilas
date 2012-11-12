@@ -10,13 +10,13 @@ function int maior ( int x , int y ) {
 
 function int maior_de_tres ( int a , int b , int c ) {
 	int r := 0 ;
-	r := maior( a , r ) ;
-	r := maior( b , r ) ;
-	r := maior( c , r ) ;
+	r := maior ( a , r ) ;
+	r := maior ( b , r ) ;
+	r := maior ( c , r ) ;
 	
 	return r ;
 }
 
-main() {
-	maior_de_tres( 1 , 2 , 3 ) ;
+main ( ) {
+	maior_de_tres ( 1 , 2 , 3 ) ;
 }
