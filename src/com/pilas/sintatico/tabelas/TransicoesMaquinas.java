@@ -116,10 +116,9 @@ public class TransicoesMaquinas {
 					td.setEstadoAtual(i-1);
 					td.setTokenRecebido(t);
 					td.setProximoEstado(Integer.valueOf(cellValue));
+					transicoes.add(td);
 				}
 			}
-			
-			transicoes.add(td);
 	    }
 	    
 	    return transicoes;
