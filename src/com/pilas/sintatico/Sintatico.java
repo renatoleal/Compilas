@@ -19,6 +19,7 @@ public class Sintatico {
 		Token token = null;
 		while((token = lexico.getNextToken()) != null) {
 			Estado next_estado = estado_atual.getNextEstado(token);
+			
 			if(next_estado != null) { // Verifica se existe transição direta
 				System.out.println("Transicao: (M:"+ this.estado_atual.getMaquina() +", E:"+ this.estado_atual.getIndice() +")" +
 						" -> (M:"+ next_estado.getMaquina() +", E:"+ next_estado.getIndice() +")");
@@ -32,10 +33,10 @@ public class Sintatico {
 							" -> (M:"+ next_estado.getMaquina() +", E:"+ next_estado.getIndice() +")");
 					this.estado_atual = next_estado;
 					
-				} else if(this.estado_atual.getTransicoesIndiretas().size() > 0) {
+				} else if(this.estado_atual.getTransicoesIndiretas().size() > 0) { // Verifica se existem transições indiretas
 					boolean transicao_valida = false;
 					
-					for (TransicaoIndireta ti : this.estado_atual.getTransicoesIndiretas()) {
+					for (TransicaoIndireta ti : this.estado_atual.getTransicoesIndiretas()) { // Valida transições indiretas
 						Estado estado_inicial_submaquina = new Estado(0, ti.getSubMaquina());
 						Estado next_estado_submaquina = estado_inicial_submaquina.getNextEstado(token);
 						if(next_estado_submaquina != null) {
