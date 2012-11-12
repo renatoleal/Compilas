@@ -38,8 +38,9 @@ public class Lexico {
 	}
 		
 	public Token getNextToken() {
-		
-		if(leSimbolo()) {
+		Token resposta = null;
+		boolean hasSimbolo = false;
+		while((hasSimbolo = leSimbolo()) && resposta == null) {
 			simbolo_tipo = classificaSimbolo(simbolo);
 			Integer ps = transicoes.getProximoEstado(estado, simbolo_tipo);
 			Integer as = transicoes.getAcaoSemantica(estado, simbolo_tipo);
@@ -89,17 +90,19 @@ public class Lexico {
 				case 6:
 					token_tipo = 258;
 					token_valor = null;
-					funcaoSaida();
+					resposta = funcaoSaida();
 					break;
 
 				default:
 					break;
 			}
-
-			return new Token(token_tipo, token_valor);
 		
-		} else {
+		}
+		
+		if(!hasSimbolo) {
 			return null;
+		} else {
+			return resposta;
 		}
 
 	}
@@ -149,14 +152,14 @@ public class Lexico {
 	}
 	
 	
-	private static void funcaoSaida() {
-//		Token t = new Token(token_tipo, token_valor);
-//		tokens.add(t);
-		
+	private static Token funcaoSaida() {
+		Token t = new Token(token_tipo, token_valor);
 		try {
 			input.reset(); // volta para o œltimo caractere marcado no buffer de leitura
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return t;
 	}
 }

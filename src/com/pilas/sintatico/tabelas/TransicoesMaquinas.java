@@ -165,8 +165,12 @@ public class TransicoesMaquinas {
 	public List<TransicaoDireta> getTransicoesDiretas(int maquina, int estado) {
 		List<TransicaoDireta> resposta = new ArrayList<TransicaoDireta>();
 		for (TransicaoDireta t : transicoesDiretas.get(maquina)) {
-			if(t.getEstadoAtual() == estado) {
-				resposta.add(t);
+			if(t != null) {
+				if(t.getEstadoAtual() != null) {
+					if(t.getEstadoAtual() == estado) {
+						resposta.add(t);
+					}									
+				}
 			}
 		}
 		
@@ -177,8 +181,12 @@ public class TransicoesMaquinas {
 	public List<TransicaoIndireta> getTransicoesIndiretas(int maquina, int estado) {
 		List<TransicaoIndireta> resposta = new ArrayList<TransicaoIndireta>();
 		for (TransicaoIndireta t : transicoesIndiretas.get(maquina)) {
-			if(t.getEstadoAtual() == estado) {
-				resposta.add(t);
+			if(t != null) {
+				if(t.getEstadoAtual() != null) {
+					if(t.getEstadoAtual() == estado) {
+						resposta.add(t);
+					}				
+				}
 			}
 		}
 		
