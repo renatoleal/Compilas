@@ -82,7 +82,6 @@ public class TransicoesMaquinas {
 		
 	    for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 	    	Row row = sheet.getRow(i);
-	    	TransicaoDireta td = new TransicaoDireta();
     		
 	    	String columnValue = "";
 	    	String cellValue = "";
@@ -110,7 +109,8 @@ public class TransicoesMaquinas {
 							System.out.println("Estado: " + (i-1)
 									+ "\nToken (" + tipo + ", " + valor + ")"
 									+ "\nProximo Estado: "+ cellValue);
-							
+
+							TransicaoDireta td = new TransicaoDireta();
 							td.setEstadoAtual(i-1);
 							td.setTokenRecebido(t);
 							td.setProximoEstado(Integer.valueOf(cellValue));

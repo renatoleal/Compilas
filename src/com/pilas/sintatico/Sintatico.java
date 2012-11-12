@@ -9,6 +9,8 @@ public class Sintatico {
 	
 	private Lexico lexico;
 	private Stack<Estado> pilha_estados = new Stack<Estado>();
+	private Stack<Estado> pilha_submaquinas = new Stack<Estado>();
+	private Stack<TransicaoIndireta> pilha_indiretas = new Stack<TransicaoIndireta>();
 	private Estado estado_atual = new Estado(0, 1);
 	
 	public Sintatico(Lexico lexico) {
@@ -16,14 +18,16 @@ public class Sintatico {
 	}
 	
 	public void execute() {
-		Token token = null;
-		while((token = lexico.getNextToken()) != null) {
+		Token token = lexico.getNextToken();
+		while(token != null) {
 			Estado next_estado = estado_atual.getNextEstado(token);
 			
 			if(next_estado != null) { // Verifica se existe transição direta
 				System.out.println("Transicao: (M:"+ this.estado_atual.getMaquina() +", E:"+ this.estado_atual.getIndice() +")" +
 						" -> (M:"+ next_estado.getMaquina() +", E:"+ next_estado.getIndice() +")");
 				this.estado_atual = next_estado;
+				this.pilha_indiretas.clear();
+				token = lexico.getNextToken();
 			
 			} else {
 				if(this.estado_atual.isFinal()) { // Verifica se é estado final
@@ -34,34 +38,31 @@ public class Sintatico {
 					this.estado_atual = next_estado;
 					
 				} else if(this.estado_atual.getTransicoesIndiretas().size() > 0) { // Verifica se existem transições indiretas
-					boolean transicao_valida = false;
 					
-					for (TransicaoIndireta ti : this.estado_atual.getTransicoesIndiretas()) { // Valida transições indiretas
-						Estado estado_inicial_submaquina = new Estado(0, ti.getSubMaquina());
-						Estado next_estado_submaquina = estado_inicial_submaquina.getNextEstado(token);
-						if(next_estado_submaquina != null) {
-							this.pilha_estados.push(this.estado_atual);
-							next_estado = next_estado_submaquina;
-							transicao_valida = true;
-
-							System.out.println("Transicao: (M:"+ this.estado_atual.getMaquina() +", E:"+ this.estado_atual.getIndice() +")" +
-									" -> (M:"+ estado_inicial_submaquina.getMaquina() +", E:"+ estado_inicial_submaquina.getIndice() +")");
-							System.out.println("Transicao: (M:"+ estado_inicial_submaquina.getMaquina() +", E:"+ estado_inicial_submaquina.getIndice() +")" +
-									" -> (M:"+ next_estado.getMaquina() +", E:"+ next_estado.getIndice() +")");
-							this.estado_atual = next_estado;
-							
-							break;
-						}
+					for (TransicaoIndireta ti : this.estado_atual.getTransicoesIndiretas()) { 
+						this.pilha_indiretas.push(ti);
 					}
 					
-					if(!transicao_valida) {
-						System.out.println("Erro: Não existem transições válidas para o autômato.");
-						throw new RuntimeException("ERRO");
-					}
-				
+					TransicaoIndireta transicao = this.pilha_indiretas.pop();
+					Estado estado_retorno = new Estado(transicao.getEstadoRetorno(), this.estado_atual.getMaquina());
+					next_estado = new Estado(0, transicao.getSubMaquina());
+					this.pilha_estados.push(estado_retorno);
+					this.estado_atual = next_estado;
+					
 				} else {
-					System.out.println("Erro: Não existem transições válidas para o autômato.");
-					throw new RuntimeException("ERRO");
+					if(this.pilha_indiretas.empty()) {
+						System.out.println("Erro: Não existem transições válidas para o autômato.");
+						throw new RuntimeException("ERRO");						
+					
+					} else {	
+						this.pilha_estados.pop(); // Descarta estado de retorno da submáquina que falhou
+
+						TransicaoIndireta transicao = this.pilha_indiretas.pop();
+						Estado estado_retorno = new Estado(transicao.getEstadoRetorno(), this.estado_atual.getMaquina());
+						next_estado = new Estado(0, transicao.getSubMaquina());
+						this.pilha_estados.push(estado_retorno);
+						this.estado_atual = next_estado;
+					}
 				}
 		
 			}

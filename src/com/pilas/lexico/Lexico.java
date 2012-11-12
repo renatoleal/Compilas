@@ -62,7 +62,7 @@ public class Lexico {
 						token_tipo = (int)cadeia.charAt(0);
 						token_valor = null;						
 					}
-					funcaoSaida();
+					resposta = funcaoSaida();
 					break;
 
 				case 3:
@@ -78,13 +78,13 @@ public class Lexico {
 						token_tipo = 256;
 						token_valor = index;						
 					}
-					funcaoSaida();
+					resposta = funcaoSaida();
 					break;
 
 				case 5:
 					token_tipo = 257;
 					token_valor = Integer.valueOf(cadeia);
-					funcaoSaida();
+					resposta = funcaoSaida();
 					break;
 
 				case 6:
@@ -102,6 +102,7 @@ public class Lexico {
 		if(!hasSimbolo) {
 			return null;
 		} else {
+			System.out.println("Token (cadeia): "+ cadeia);
 			return resposta;
 		}
 

@@ -31,8 +31,10 @@ public class Token {
 	
 	public boolean isEqualToken(Token token) {
 		boolean resposta = false;
-		if(token.getTipo() == this.tipo && token.getValor() == this.valor) {
-			resposta = true;
+		if(token.getTipo().equals(this.tipo)) {
+			if((token.getValor() == null && this.valor == null) || (token.getValor() == this.valor)) {
+				resposta = true;				
+			}
 		}
 		return resposta;
 	}
