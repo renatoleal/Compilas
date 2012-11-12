@@ -94,8 +94,8 @@ public class TransicoesMaquinas {
 					//Monta o token correspondente
 					Token t = new Token();
 					Sheet tokens = wb.getSheet("Tokens");
-					Integer tipo = 0;
-					Integer valor = 0;
+					Integer tipo = null;
+					Integer valor = null;
 					for (int k = 1; k < tokens.getLastRowNum(); k++) {
 						if (columnValue.equalsIgnoreCase(tokens.getRow(k).getCell(0).getStringCellValue())) {
 							tipo = (int) tokens.getRow(k).getCell(1).getNumericCellValue();
@@ -104,19 +104,20 @@ public class TransicoesMaquinas {
 							} else {
 								valor = null;
 							}
+							
+							t.setTipo(tipo);
+							t.setValor(valor);
+							System.out.println("Estado: " + (i-1)
+									+ "\nToken (" + tipo + ", " + valor + ")"
+									+ "\nProximo Estado: "+ cellValue);
+							
+							td.setEstadoAtual(i-1);
+							td.setTokenRecebido(t);
+							td.setProximoEstado(Integer.valueOf(cellValue));
+							transicoes.add(td);
+							break;
 						}
-						t.setTipo(tipo);
-						t.setValor(valor);
 					}
-					
-					System.out.println("Estado: " + (i-1)
-							+ "\nToken (" + tipo + ", " + valor + ")"
-							+ "\nProximo Estado: "+ cellValue);
-					
-					td.setEstadoAtual(i-1);
-					td.setTokenRecebido(t);
-					td.setProximoEstado(Integer.valueOf(cellValue));
-					transicoes.add(td);
 				}
 			}
 	    }
