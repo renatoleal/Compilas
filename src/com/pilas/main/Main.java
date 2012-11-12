@@ -19,8 +19,8 @@ public class Main {
 		
 		// Executa analisador sint‡tico
 		Sintatico sintatico = new Sintatico(lexico);
+		sintatico.execute();
 		
-		System.out.println("Sucesso");
 	}
 
 }

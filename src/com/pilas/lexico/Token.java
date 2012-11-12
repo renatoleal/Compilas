@@ -29,5 +29,11 @@ public class Token {
 		this.valor = valor;
 	}
 	
-	
+	public boolean isEqualToken(Token token) {
+		boolean resposta = false;
+		if(token.getTipo() == this.tipo && token.getValor() == this.valor) {
+			resposta = true;
+		}
+		return resposta;
+	}
 }
