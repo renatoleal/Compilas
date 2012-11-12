@@ -58,4 +58,15 @@ public class EstadosFinais {
 			instance = new EstadosFinais();
 		return instance;
 	}
+	
+	public boolean isEstadoFinal(int maquina, int estado) {
+		boolean resposta = false;
+		for (Integer e : estadosFinais.get(maquina)) {
+			if(estado == e) {
+				resposta = true;
+			}
+		}
+		
+		return resposta;
+	}
 }

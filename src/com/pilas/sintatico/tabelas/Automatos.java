@@ -14,8 +14,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import com.pilas.lexico.tabelas.Transicoes;
-
 public class Automatos {
 	
 	private static Automatos instance;
