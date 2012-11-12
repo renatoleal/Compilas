@@ -18,5 +18,8 @@ function int maior_de_tres ( int a , int b , int c ) {
 }
 
 main ( ) {
-	maior_de_tres ( 1 , 2 , 3 ) ;
+	int a := 1 ;
+	int b := 2 ;
+	int c := 3 ;
+	maior_de_tres ( a , b , c ) ;
 }

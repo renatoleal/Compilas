@@ -71,7 +71,7 @@ public class Sintatico {
 			
 		}
 		
-		if(this.pilha_estados.empty()) {
+		if(this.estado_atual.isFinal()) {
 			System.out.println("SUCESSO");
 		} else {
 			System.out.println("ERRO");
